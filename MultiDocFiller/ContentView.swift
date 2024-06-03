@@ -9,6 +9,7 @@ import CoreImage
 import CoreImage.CIFilterBuiltins
 import SwiftUI
 import Vision
+import _PhotosUI_SwiftUI
 
 struct ContentView: View {
     @State private var blurAmount = 0.0
@@ -18,26 +19,15 @@ struct ContentView: View {
     @State private var image: Image?
     @State private var inputImage: UIImage?
     @State private var showingImagePicker = false
+    @State private var showLiveTextView = false
     
     @State private var recognizedText = "Tap button to start scanning..."
     @State private var showingScanningView = false
+    @State private var selectedItems = [PhotosPickerItem]()
+    @State private var selectedImages = [Image]()
+
+    
     var body: some View {
-        //        Form {
-        //            VStack {
-        //                image?
-        //                    .resizable()
-        //                    .scaledToFit()
-        //                Button("Load image") {
-        //                    showingImagePicker = true
-        //                }
-        //            }
-        //            .sheet(isPresented: $showingImagePicker, content: {
-        //                ImagePicker(image: $inputImage)
-        //            })
-        //
-        //        }
-        //        .onChange(of: inputImage) { _, _ in loadImage() }
-        
         NavigationView {
             VStack {
                 ScrollView {
@@ -50,22 +40,10 @@ struct ContentView: View {
                     }
                     .padding()
                 }
-                
-                Spacer()
-                
+                                
                 HStack {
-                    Button(action: { self.showingImagePicker = true
-                    }, label: {
-                        Text("Scaning from images")
-                    })
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Capsule().fill(Color.blue))
-                    
-                    Spacer()
-                    
                     Button(action: {
-                        self.showingScanningView = true
+                        showingScanningView = true
                     }, label: {
                         Text("Start Scanning")
                     })
@@ -80,10 +58,38 @@ struct ContentView: View {
         .sheet(isPresented: $showingScanningView, content: {
             ScanDocumentView(recognizedText: self.$recognizedText)
         })
-        .sheet(isPresented: $showingImagePicker, content: {
-            ImagePicker(image: $inputImage)
-        })
         .onChange(of: inputImage) { _, _ in loadImage() }
+        .sheet(isPresented: $showLiveTextView, content: {
+            LiveTextInteractionView()
+        })
+
+        NavigationStack {
+            ScrollView {
+                LazyVStack {
+                    ForEach(0..<selectedImages.count, id: \.self) { i in
+                        selectedImages[i]
+                            .resizable()
+                            .scaledToFit()
+                            .frame(width: 300, height: 300)
+                    }
+                }
+            }
+            .toolbar {
+                PhotosPicker("Select images", selection: $selectedItems, matching: .images)
+            }
+            .onChange(of: selectedItems) {
+                Task {
+                    showLiveTextView = true
+                    selectedImages.removeAll()
+
+                    for item in selectedItems {
+                        if let image = try? await item.loadTransferable(type: Image.self) {
+                            selectedImages.append(image)
+                        }
+                    }
+                }
+            }
+        }
     }
     
     func loadImage() {

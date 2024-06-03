@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		5C140A7B2C0E275400EE7EBC /* LiveTextInteractionView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C140A7A2C0E275400EE7EBC /* LiveTextInteractionView.swift */; };
+		5C140A7D2C0E278300EE7EBC /* LiveTextInteraction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5C140A7C2C0E278300EE7EBC /* LiveTextInteraction.swift */; };
 		BADFA2242BCC29150005E758 /* MultiDocFillerApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADFA2232BCC29150005E758 /* MultiDocFillerApp.swift */; };
 		BADFA2262BCC29150005E758 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = BADFA2252BCC29150005E758 /* ContentView.swift */; };
 		BADFA2282BCC29160005E758 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = BADFA2272BCC29160005E758 /* Assets.xcassets */; };
@@ -16,6 +18,8 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		5C140A7A2C0E275400EE7EBC /* LiveTextInteractionView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTextInteractionView.swift; sourceTree = "<group>"; };
+		5C140A7C2C0E278300EE7EBC /* LiveTextInteraction.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LiveTextInteraction.swift; sourceTree = "<group>"; };
 		BADFA2202BCC29150005E758 /* MultiDocFiller.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = MultiDocFiller.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		BADFA2232BCC29150005E758 /* MultiDocFillerApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDocFillerApp.swift; sourceTree = "<group>"; };
 		BADFA2252BCC29150005E758 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -59,6 +63,8 @@
 				BADFA2252BCC29150005E758 /* ContentView.swift */,
 				BAE377592BCD502100013117 /* ScanDocumentView.swift */,
 				BAE377572BCD3D1800013117 /* ImagePicker.swift */,
+				5C140A7A2C0E275400EE7EBC /* LiveTextInteractionView.swift */,
+				5C140A7C2C0E278300EE7EBC /* LiveTextInteraction.swift */,
 				BADFA2272BCC29160005E758 /* Assets.xcassets */,
 				BADFA2292BCC29160005E758 /* Preview Content */,
 			);
@@ -144,7 +150,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				BAE3775A2BCD502100013117 /* ScanDocumentView.swift in Sources */,
+				5C140A7D2C0E278300EE7EBC /* LiveTextInteraction.swift in Sources */,
 				BAE377582BCD3D1800013117 /* ImagePicker.swift in Sources */,
+				5C140A7B2C0E275400EE7EBC /* LiveTextInteractionView.swift in Sources */,
 				BADFA2262BCC29150005E758 /* ContentView.swift in Sources */,
 				BADFA2242BCC29150005E758 /* MultiDocFillerApp.swift in Sources */,
 			);
@@ -284,6 +292,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need to use the camera to scan documents";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "You need access to photo Library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
@@ -314,6 +323,7 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSCameraUsageDescription = "We need to use the camera to scan documents";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "You need access to photo Library";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;

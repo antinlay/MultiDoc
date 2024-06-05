@@ -9,13 +9,15 @@ import SwiftUI
 
 struct LiveTextInteractionView: View {
     @Environment(\.presentationMode) var presentationMode
+    var image: Image
+    
     var body: some View {
         NavigationView {
-            LiveTextInteraction(imageName: "1")
+            LiveTextInteraction(image: image)
                 .toolbar {
                     ToolbarItem(placement: .navigationBarLeading) {
                         Button {
-                            self.presentationMode.wrappedValue.dismiss()
+                            presentationMode.wrappedValue.dismiss()
                         } label: {
                             Text("Cancel")
                         }
@@ -27,5 +29,5 @@ struct LiveTextInteractionView: View {
 }
 
 #Preview {
-    LiveTextInteractionView()
+    LiveTextInteractionView(image: Image(.example))
 }

@@ -12,19 +12,14 @@ import Vision
 import _PhotosUI_SwiftUI
 
 struct ContentView: View {
-    @State private var blurAmount = 0.0
-    @State private var backgroundColor = Color.gray
-    @State private var showConfirmation = false
-    
     @State private var image: Image?
     @State private var inputImage: UIImage?
-    @State private var showingImagePicker = false
     @State private var showLiveTextView = false
     
     @State private var recognizedText = "Tap button to start scanning..."
     @State private var showingScanningView = false
     @State private var selectedItems = [PhotosPickerItem]()
-    @State private var selectedImages = [Image]()
+    @State private var selectedImages = [LiveTextInteractionView]()
 
     
     var body: some View {
@@ -35,42 +30,29 @@ struct ContentView: View {
                         RoundedRectangle(cornerRadius: 20, style: .continuous)
                             .fill(Color.gray.opacity(0.2))
                         
-                        Text(recognizedText)
+                        TextEditor(text: $recognizedText)
                             .padding()
                     }
                     .padding()
                 }
-                                
-                HStack {
-                    Button(action: {
-                        showingScanningView = true
-                    }, label: {
-                        Text("Start Scanning")
-                    })
-                    .padding()
-                    .foregroundColor(.white)
-                    .background(Capsule().fill(Color.blue))
-                }
-                .padding()
             }
             .navigationTitle("Text Recognition")
+            .onTapGesture {
+                showingScanningView = true
+            }
+
         }
         .sheet(isPresented: $showingScanningView, content: {
-            ScanDocumentView(recognizedText: self.$recognizedText)
+            ScanDocumentView(recognizedText: $recognizedText)
         })
         .onChange(of: inputImage) { _, _ in loadImage() }
-        .sheet(isPresented: $showLiveTextView, content: {
-            LiveTextInteractionView()
-        })
 
         NavigationStack {
             ScrollView {
                 LazyVStack {
                     ForEach(0..<selectedImages.count, id: \.self) { i in
                         selectedImages[i]
-                            .resizable()
                             .scaledToFit()
-                            .frame(width: 300, height: 300)
                     }
                 }
             }
@@ -84,7 +66,7 @@ struct ContentView: View {
 
                     for item in selectedItems {
                         if let image = try? await item.loadTransferable(type: Image.self) {
-                            selectedImages.append(image)
+                            selectedImages.append(LiveTextInteractionView(image: image))
                         }
                     }
                 }

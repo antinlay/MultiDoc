@@ -12,13 +12,13 @@ import VisionKit
 @MainActor
 struct LiveTextInteraction: UIViewRepresentable {
     
-    var imageName: String
+    var image: Image
     let imageView = LiveTextImageView()
     let analyzer = ImageAnalyzer()
     let interaction = ImageAnalysisInteraction()
     
     func makeUIView(context: Context) -> some UIView {
-        imageView.image = UIImage(named: imageName)
+        imageView.image = getUIImage(from: image)
         
         imageView.addInteraction(interaction)
         imageView.contentMode = .scaleAspectFit
@@ -39,6 +39,11 @@ struct LiveTextInteraction: UIViewRepresentable {
                 // Handle error…
             }
         }
+    }
+    
+    private func getUIImage(from image: Image) -> UIImage {
+        let renderer = ImageRenderer(content: image)
+        return renderer.uiImage!
     }
 }
 
